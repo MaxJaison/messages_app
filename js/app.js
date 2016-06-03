@@ -19,5 +19,5 @@
                     templateUrl: 'templates/allmessages.html'
                 });
         })
-        .constant("FBURL", "https://mymessagesapp.firebaseio.com/");
+        .constant("FBURL", "https://mymessagesapp.firebaseio.com/")
 })();

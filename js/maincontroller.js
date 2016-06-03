@@ -4,41 +4,42 @@
 (function() {
     'use strict';
     angular.module('MyApp')
-        .controller('MainController', function mainController($firebaseArray, FBURL, $location, $filter) {
+        .controller('MainController', function mainController($firebaseArray, FBURL) {
             var vm = this;
             var postsRef = new Firebase(FBURL);
-            vm.date = $filter('date')(new Date(),'yyyy-MM-dd');
-
-            /**Get current user*/
-            var url = $location.path().split("/");
-            vm.currentUser = url[2];
+            vm.date = new Date();
 
             /** Get all posts*/
             vm.posts = $firebaseArray(postsRef);
-            console.log(vm.posts);
 
             /**Create new post*/
             vm.createPost = function() {
                 vm.newPost = {
                     autor: vm.currentUser,
-                    date: vm.date,
+                    date: vm.date.getTime(),
                     message: ""
                 };
             };
 
             /**Add new post */
             vm.addPost = function() {
-                vm.posts.$add(vm.newPost)
+                vm.posts.$add(vm.newPost);
+                vm.filterUserPosts();
             };
 
-            /**Filter current user posts*/
-            vm.myPosts = [];
-            vm.posts.forEach(function(post) {
-                if(post.autor === vm.currentUser) {
-                    vm.myPosts.push(post);
-                }
-            });
-            console.log(vm.myPosts);
+            /**Current user posts*/
+            vm.filterUserPosts = function() {
+                vm.myPosts = [];
+                postsRef.once("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        var childData = childSnapshot.val();
+                        if (childData.autor === vm.currentUser) {
+                            vm.myPosts.push(childData);
+                        }
+                    });
+                });
+            };
+
 
             /**User information*/
             vm.user = {
@@ -57,8 +58,9 @@
                 vm.showEditFields = false;
             };
 
-            vm.init = function() {
-                vm.currentUser = ""
+            /**Clear current user*/
+            vm.clearUser = function() {
+                vm.currentUser = "";
             };
 
         });
