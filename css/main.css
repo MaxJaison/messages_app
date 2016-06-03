@@ -1,0 +1,18 @@
+.container {
+  padding: 10px; }
+  .container .input-group {
+    margin-bottom: 20px; }
+  .container .bg-info {
+    padding: 10px; }
+  .container .userinfobtn {
+    margin-bottom: 10px; }
+  .container .infobtn {
+    margin-bottom: 20px; }
+
+.main {
+  width: 300px;
+  margin: 20% auto; }
+  .main .input-group {
+    margin-bottom: 20px; }
+  .main .center {
+    text-align: center; }

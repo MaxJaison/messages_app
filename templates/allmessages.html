@@ -1,0 +1,26 @@
+
+<div class="container">
+    <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="search" ng-model="vm.searchText" aria-describedby="basic-addon1">
+                    <span class="input-group-addon" id="basic-addon1">Search</span>
+                </div>
+                <div class="btn-group infobtn" role="group">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary btn-lg" ng-click="vm.createPost()" data-toggle="modal" data-target="#myModal">Create post</button>
+                    <a type="button" class="btn btn-primary btn-lg" ui-sref="users({user: vm.currentUser})"  >User profile</a>
+                    <a type="button" class="btn btn-primary btn-lg" ui-sref="/"  >Start page</a>
+                </div>
+                <div class="panel panel-primary" ng-repeat="post in vm.posts | filter:vm.searchText track by $index">
+                    <div class="panel-heading clearfix">
+                        <h3 class="pull-left panel-title">{{post.autor}}</h3><span class="pull-right">{{post.date | date:"MM/dd/yyyy 'at' h:mma" }}</span>
+                    </div>
+
+                    <div class="panel-body">
+                        {{post.message}}
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
