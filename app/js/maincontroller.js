@@ -1,21 +1,24 @@
-/**
- * Created by HATHOR-MAX on 02.06.2016.
- */
 (function() {
     'use strict';
     angular.module('MyApp')
-        .controller('MainController', function mainController($firebaseArray, FBURL) {
+        .controller('MainController', function mainController($firebaseArray, $firebaseObject, FBURL, $state, $location) {
             var vm = this;
-            var postsRef = new Firebase(FBURL);
+            var user = $location.path().split("/").slice(2);
+            vm.currentUser = user.toString().toLowerCase();
+
+            var postsRef = new Firebase(FBURL + '/mesages');
+            var userRef = new Firebase(FBURL + '/users');
             vm.date = new Date();
 
             /** Get all posts*/
             vm.posts = $firebaseArray(postsRef);
 
+            vm.user = $firebaseObject(userRef.child(vm.currentUser));
+
             /**Create new post*/
             vm.createPost = function() {
                 vm.newPost = {
-                    autor: vm.currentUser,
+                    author: vm.currentUser,
                     date: vm.date.getTime(),
                     message: ""
                 };
@@ -40,14 +43,6 @@
                 });
             };
 
-
-            /**User information*/
-            vm.user = {
-                age: 0,
-                loc: "",
-                site: ""
-            };
-
             /**Edit user information*/
             vm.editInfo = function() {
                 vm.showEditFields = true;
@@ -55,6 +50,7 @@
 
             /**Save user information*/
             vm.saveInfo = function() {
+                vm.user.$save();
                 vm.showEditFields = false;
             };
 
@@ -64,6 +60,4 @@
             };
 
         });
-
-
 })();

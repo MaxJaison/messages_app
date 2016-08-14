@@ -6,18 +6,20 @@
             $urlRouterProvider.otherwise('/login');
 
             $stateProvider
-                .state('/', {
+                .state('main', {
                     url: '/login',
-                    templateUrl: 'templates/login.html'
+                    templateUrl: 'templates/login.html',
+                    controller: 'LoginController'
                 })
                 .state('users', {
                     url: '/user/:user',
-                    templateUrl: 'templates/userprofile.html'
+                    templateUrl: 'templates/userprofile.html',
+                    controller: 'MainController'
                 })
                 .state('all', {
                     url: '/all',
                     templateUrl: 'templates/allmessages.html'
                 });
         })
-        .constant("FBURL", "https://mymessagesapp.firebaseio.com/")
+        .constant("FBURL", "https://mymessagesapp.firebaseio.com")
 })();
