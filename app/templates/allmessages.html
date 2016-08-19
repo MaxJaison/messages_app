@@ -1,35 +1,19 @@
 
-<div class="container">
+<div class="container" ng-controller="MainController as vm">
     <div class="row">
             <div class="col-md-12">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="search" ng-model="vm.searchText" aria-describedby="basic-addon1">
                     <span class="input-group-addon" id="basic-addon1">Search</span>
                 </div>
-                <div class="btn-group infobtn" role="group">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary btn-lg" ng-click="vm.createPost()" data-toggle="modal" data-target="#myModal">Create post</button>
-                    <a type="button" class="btn btn-primary btn-lg" ui-sref="users({user: vm.currentUser})"  >User profile</a>
-                    <a type="button" class="btn btn-primary btn-lg" ng-click="vm.clearUser()" ui-sref="/"  >Start page</a>
+
+                <div class="input-group">
+                    <a type="button" class="btn btn-primary btn-lg" ui-sref="main">Start page</a>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <textarea class="form-control" rows="3" maxlength="60" ng-model="vm.newPost.message"></textarea>
-                                <p>{{60 - vm.newPost.message.length}} chars remaining</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="button" ng-click="vm.addPost(vm.newPost)" data-dismiss="modal" class="btn btn-primary">Save Post</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-primary" ng-repeat="post in vm.posts | filter:vm.searchText track by $index">
+
+                <div class="panel panel-primary" ng-repeat="post in vm.posts | filter:vm.searchText">
                     <div class="panel-heading clearfix">
-                        <h3 class="pull-left panel-title">{{post.autor}}</h3><span class="pull-right">{{post.date | date:"dd-MM-yyyy 'at' h:mma" }}</span>
+                        <h3 class="pull-left panel-title">{{post.author}}</h3><span class="pull-right">{{post.date | date:"dd-MM-yyyy 'at' h:mma" }}</span>
                     </div>
 
                     <div class="panel-body">

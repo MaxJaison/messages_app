@@ -1,7 +1,6 @@
 <div class="container" ng-controller="MainController as vm" ng-init="vm.init()">
     <div class="row">
         <div class="col-md-3">
-
             <div class="thumbnail">
                         <img src="http://placehold.it/150x150" class="img-circle" alt="user image">
                         <div class="caption">
@@ -32,10 +31,9 @@
             <div class="btn-group-vertical" role="group" aria-label="...">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary btn-lg" ng-click="vm.createPost()" data-toggle="modal" data-target="#myModal">Create post</button>
-                <a type="button" class="btn btn-primary btn-lg" ui-sref="all"  >All messages</a>
-                <a type="button" ng-click="vm.clearUser()" class="btn btn-primary btn-lg" ui-sref="main"  >Start page</a>
+                <a type="button" class="btn btn-primary btn-lg" ui-sref="all({user: vm.currentUser})">All messages</a>
+                <a type="button" class="btn btn-primary btn-lg" ui-sref="main">Start page</a>
             </div>
-
 
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -58,7 +56,7 @@
                 <input type="text" class="form-control" ng-model="vm.searchText" placeholder="search" aria-describedby="basic-addon1">
                 <span class="input-group-addon" id="basic-addon1">Search</span>
             </div>
-            <div class="panel panel-primary" ng-repeat="post in vm.posts | filter:vm.searchText track by $index">
+            <div class="panel panel-primary" ng-repeat="post in vm.userPosts | filter:vm.searchText">
                 <div class="panel-heading clearfix">
                     <h3 class="pull-left panel-title">{{post.author}}</h3><span class="pull-right">{{post.date | date:"MM/dd/yyyy 'at' h:mma" }}</span>
                 </div>

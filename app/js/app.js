@@ -17,8 +17,9 @@
                     controller: 'MainController'
                 })
                 .state('all', {
-                    url: '/all',
-                    templateUrl: 'templates/allmessages.html'
+                    url: '/all/:user',
+                    templateUrl: 'templates/allmessages.html',
+                    controller: 'MainController'
                 });
         })
         .constant("FBURL", "https://mymessagesapp.firebaseio.com")
